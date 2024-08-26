@@ -10,13 +10,13 @@ from app.bot import handlers
 
 if TYPE_CHECKING:
     from app.libs.wiki_api import WikiAPI
-    from app.libs.chatgpt import ChatGptAPI
+    from app.libs.chatgpt import OpenAIAPI
 
 
 async def start(
         bot_token: SecretStr,
         wiki_api_instance: 'WikiAPI',
-        chat_gpt_instance: 'ChatGptAPI'
+        chat_gpt_instance: 'OpenAIAPI'
 ) -> None:
     bot = Bot(
         token=bot_token.get_secret_value(),
@@ -27,7 +27,6 @@ async def start(
     )
 
     dp = Dispatcher(storage=MemoryStorage())
-
     dp.include_router(handlers.root_router)
 
     dp['wiki_api'] = wiki_api_instance

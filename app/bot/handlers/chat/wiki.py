@@ -1,11 +1,8 @@
-from typing import TYPE_CHECKING
-
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 
-if TYPE_CHECKING:
-    from app.libs.wiki_api import WikiAPI, WikiArticleResponse
+from app.libs.wiki_api import WikiAPI, WikiArticleResponse
 
 router = Router(name='wiki command router')
 
@@ -20,14 +17,14 @@ router = Router(name='wiki command router')
     prefix='!./',
     ignore_case=True
 ))
-async def wiki_command(msg: Message, wiki_api: 'WikiAPI') -> ...:
+async def wiki_command(msg: Message, wiki_api: WikiAPI) -> ...:
     text_split = msg.text.split()
 
     if len(text_split) == 1:
         return await msg.reply('Неверный синтаксис команды.')
 
     wiki_request_text = ' '.join(text_split[1:])
-    wiki_response: 'WikiArticleResponse' = await wiki_api.get_article(wiki_request_text)
+    wiki_response = await wiki_api.get_article(wiki_request_text)
 
     if not wiki_response:
         return await msg.reply('Ошибка вики.')

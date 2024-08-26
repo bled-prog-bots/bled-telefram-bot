@@ -1,3 +1,5 @@
+import re
+from app.consts import RegexPatterns
 
 
 class Singleton(type):
@@ -19,3 +21,7 @@ def telegram_markdown_escaping(s1: str) -> str:
         s1 = s1.replace(symbol, '\N{REVERSE SOLIDUS}' + symbol)
 
     return s1
+
+
+def contains_chinese_symbols(s: str) -> bool:
+    return re.search(RegexPatterns.CHINESE_SYMBOLS, s) is not None

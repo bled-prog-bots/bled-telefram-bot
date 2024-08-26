@@ -1,39 +1,17 @@
-from datetime import datetime
-from dataclasses import dataclass
+from typing import Union, Optional
+
+from pydantic import BaseModel
+from openai.types import chat
+from openai.types import ChatModel
+
+__all__ = [
+    'ChatCompletionMessage',
+    'ChatCompletionsArgs',
+]
+
+ChatCompletionMessage = chat.ChatCompletionMessage
 
 
-@dataclass
-class Usage:
-    prompt_tokens: int
-    completion_tokens: int
-    total_tokens: int
-
-
-@dataclass
-class Message:
-    role: str
-    content: str
-
-
-@dataclass
-class Choice:
-    index: int
-    message: Message
-    finish_reason: str
-
-
-@dataclass
-class GPTResponse:
-    id: str
-    object: str
-    created: datetime
-    model: str
-    choices: list
-    usage: Usage
-    system_fingerprint: str
-
-
-@dataclass
-class GPTError:
-    type: str
-    message: str
+class ChatCompletionsArgs(BaseModel):
+    model: Union[str, ChatModel]
+    context: Optional[str] = None

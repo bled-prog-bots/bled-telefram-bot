@@ -1,14 +1,14 @@
 from abc import ABC, abstractmethod
 
-from .types import GPTResponse, GPTError
+from .types import ChatCompletionMessage
 
 
-class ABCChatGptAPI(ABC):
+class ABCOpenAIAPI(ABC):
 
     @abstractmethod
     def __init__(self) -> None:
         ...
 
     @abstractmethod
-    def make_request(self, question: str) -> GPTResponse | GPTError:
+    def get_completion(self, prompt: str) -> ChatCompletionMessage:
         ...
