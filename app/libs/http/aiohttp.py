@@ -49,6 +49,15 @@ class AiohttpClient:
         if self.session and not self.session.closed:
             await self.session.close()
 
+    def __del__(self) -> None:
+        if not self.session and self.session.closed:
+            return
+
+        if self.session.connector is not None and self.session.connector_owner:
+            self.session.connector.close()
+        self.session._connector = None
+
+
 
 class SingleAiohttpClient(AiohttpClient, metaclass=Singleton):
     ...

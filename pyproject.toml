@@ -5,6 +5,7 @@ description = "A useful bot for bled programming  telegram chat"
 authors = []
 license = "MIT"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
